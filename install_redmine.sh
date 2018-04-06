@@ -186,9 +186,11 @@ cp dispatch.fcgi.example dispatch.fcgi
 cp htaccess.fcgi.example .htaccess
 chmod +x dispatch.fcgi
 
+## APACHE
 
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/conf.d/ssl.conf.disable
 
-cat <<EOF > /etc/httpd/conf.d/ssl-$HOST.conf
+cat <<EOF > /etc/httpd/conf.d/$FQDN.conf
 <VirtualHost *:80>
         ServerName $FQDN
         ServerAdmin admin@$FQDN
@@ -200,6 +202,44 @@ cat <<EOF > /etc/httpd/conf.d/ssl-$HOST.conf
                 Allow from all
                 AllowOverride all
         </Directory>
+</VirtualHost>
+EOF
+
+cat <<EOF > /etc/httpd/conf.d/ssl-$FQDN.conf
+Listen 443 https
+SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
+SSLSessionCache         shmcb:/run/httpd/sslcache(512000)
+SSLSessionCacheTimeout  300
+SSLRandomSeed startup file:/dev/urandom  256
+SSLRandomSeed connect builtin
+SSLCryptoDevice builtin
+<VirtualHost _default_:443>
+DocumentRoot /var/www/redmine/public/
+<Directory "/var/www/redmine/public/">
+        Options Indexes ExecCGI FollowSymLinks
+        Order allow,deny
+        Allow from all
+        AllowOverride all
+</Directory>
+ErrorLog logs/ssl_error_log
+TransferLog logs/ssl_access_log
+LogLevel warn
+SSLEngine on
+SSLProtocol all -SSLv2
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+    SSLOptions +StdEnvVars
+</Files>
+<Directory "/var/www/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+BrowserMatch "MSIE [2-5]" \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+CustomLog logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 </VirtualHost>
 EOF
 
