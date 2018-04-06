@@ -2,7 +2,7 @@
 
 # Debug
 
-set -xv
+# set -xv
 
 ## VARIAVEIS
 
