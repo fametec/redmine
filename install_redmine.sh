@@ -101,7 +101,7 @@ mariadb-server
 
 ## RUBY
 
-RUBY=`ruby -v`
+ruby -v
 if [ $? -ne 0 ]; then 
   yum -y install gcc 
   cd /usr/local/src
