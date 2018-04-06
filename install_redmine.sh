@@ -9,14 +9,14 @@
 FQDN="redmine.eftech.com.br"
 ADMINEMAIL="suporte@eftech.com.br"
 ORGANIZATION="EF-TECH"
-MYSQL_ROOT_PASSWORD='qaz123'
+MYSQL_ROOT_PASSWORD=''
 DBUSER="redmine"
 DBHOST="localhost"
 DBNAME="redmine"
-# DBPASS="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
-DBPASS="qaz123"
-MYSQL_NEW_ROOT_PASSWORD="qaz123"
-# MYSQL_NEW_ROOT_PASSWORD="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
+DBPASS="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
+#DBPASS="qaz123"
+#MYSQL_NEW_ROOT_PASSWORD="qaz123"
+MYSQL_NEW_ROOT_PASSWORD="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
 
 
 MYSQL="mysql -u root -p${MYSQL_NEW_ROOT_PASSWORD}"
