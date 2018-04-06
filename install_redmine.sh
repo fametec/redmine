@@ -148,12 +148,6 @@ cd /var/www/
 svn co http://svn.redmine.org/redmine/branches/3.4-stable redmine
 
 
-if [ $DEBUG -eq 1 ]; then
-  read
-fi
-
-exit 1 # Parada Programada
-
 cat <<EOF > /var/www/redmine/config/database.yml
 production:
   adapter: mysql2
