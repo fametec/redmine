@@ -163,10 +163,6 @@ cat /var/www/redmine/config/database.yml
 
 chown -R redmine:redmine /var/www/redmine
 
-if [ $DEBUG -eq 1 ]; then
-  read
-fi
-
 
 cd /var/www/redmine
 
@@ -174,11 +170,6 @@ bundle install
 
 yard config --gem-install-yri
 
-
-
-if [ $DEBUG -eq 1 ]; then
-  read
-fi
 
 echo "ENV['RAILS_ENV'] ||= 'production'" >> /var/www/redmine/config/environment.rb
 
