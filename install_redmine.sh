@@ -102,14 +102,14 @@ mariadb-server
 ## RUBY
 
 RUBY=`ruby -v`
-if [ ! $? -eq ]; then 
+if [ $? -ne 0 ]; then 
   yum -y install gcc 
   cd /usr/local/src
   wget https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0.tar.gz
   tar xvfz ruby-2.5.0.tar.gz
   cd ruby-2.5.0/
   ./configure && make && make install
-
+fi
 export PATH=/usr/local/bin:$PATH
 # ruby -v
 # ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-linux]
