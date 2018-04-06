@@ -103,7 +103,7 @@ mariadb-server
 
 yum -y install gcc 
 cd /usr/local/src
-wget https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0.tar.gz
+curl https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0.tar.gz -O ruby-2.5.0.tar.gz 
 tar xvfz ruby-2.5.0.tar.gz
 cd ruby-2.5.0/
 ./configure && make && make install
