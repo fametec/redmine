@@ -13,10 +13,10 @@ MYSQL_ROOT_PASSWORD=''
 DBUSER="redmine"
 DBHOST="localhost"
 DBNAME="redmine"
-DBPASS="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
+DBPASS="E`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
 #DBPASS="qaz123"
 #MYSQL_NEW_ROOT_PASSWORD="qaz123"
-MYSQL_NEW_ROOT_PASSWORD="`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
+MYSQL_NEW_ROOT_PASSWORD="C`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`"
 
 
 MYSQL="mysql -u root -p${MYSQL_NEW_ROOT_PASSWORD}"
@@ -188,7 +188,7 @@ chmod +x dispatch.fcgi
 
 ## APACHE
 
-mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/conf.d/ssl.conf.disable
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.disable
 
 cat <<EOF > /etc/httpd/conf.d/$FQDN.conf
 <VirtualHost *:80>
